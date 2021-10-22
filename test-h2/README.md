@@ -1,10 +1,3 @@
----
-layout: customPost
-title:  "Spring Boot H2 사용하기"
-categories: 
-  - SpringBoot
-  - 데이터베이스
----
 ## H2 데이터베이스 
 
 H2는 자바기반 오픈소스 인 메모리 데이터베이스입니다.  
@@ -252,7 +245,7 @@ h2-console이 아닌 외부 데이터베이스 클라이언트([DBeaver](https:/
 
 ​		하지만 한가지 문제점이 있습니다.  지금까지 테스트는 Application 내의 H2 데이터베이스에  접근하기 때문에 Application이 종료되		면 접근할 수 없습니다. 이 문제를 해결하기 위해서는 H2 데이터베이스를 로컬에 설치하여 별도 프로세스로 실행시켜 Application		과 H2 	데이터 베이스를 분리 시켜야됩니다.
 
-	![image-20211021222342558](https://cdn.jsdelivr.net/gh/donghyeok-dev/donghyeok-dev.github.io@master/assets/images/posts/image-20211021222342558.png)
+![image-20211021222342558](https://cdn.jsdelivr.net/gh/donghyeok-dev/donghyeok-dev.github.io@master/assets/images/posts/image-20211021222342558.png)
 =======
 ​		이미지 출처: [https://www.h2database.com/html/features.html](https://www.h2database.com/html/features.html){:target="_blank"}
 
