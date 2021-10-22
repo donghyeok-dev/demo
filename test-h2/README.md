@@ -93,17 +93,12 @@ spring:
       password:
   jpa:
     show-sql: true
-    generate-ddl: false
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-      properties:
-        hibernate:
-          show-sql: true
-          format_sql: true
 ```
 
 MemberDto.java
