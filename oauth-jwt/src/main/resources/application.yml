@@ -38,3 +38,7 @@ spring:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
 
+jwt:
+  secret: token-secret-key
+  tokenExpiration: 600000 # 10분 (1000 * 60 * 10)
+  refreshTokenExpiration: 1209600000 # 14일 (1000 * 60 * 60 * 24 * 14)
