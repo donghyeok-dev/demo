@@ -8,6 +8,6 @@ import javax.persistence.Converter;
 @Converter
 public class ProviderTypeConverter extends AbstractTypeConverter<ProviderType> {
     public ProviderTypeConverter() {
-        super(ProviderType.class, true);
+        super(ProviderType.class, false);
     }
 }
