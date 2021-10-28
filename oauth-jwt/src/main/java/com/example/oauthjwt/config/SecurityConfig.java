@@ -1,7 +1,7 @@
 package com.example.oauthjwt.config;
 
-import com.example.oauthjwt.config.oauth2.CustomOAuthUserService;
-import com.example.oauthjwt.config.oauth2.OAuth2SuccessHandler;
+import com.example.oauthjwt.config.oauth2.service.CustomOAuthUserService;
+import com.example.oauthjwt.config.oauth2.handler.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

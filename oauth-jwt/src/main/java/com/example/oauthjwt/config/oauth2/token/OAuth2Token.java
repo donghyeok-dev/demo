@@ -1,4 +1,4 @@
-package com.example.oauthjwt.config.oauth2;
+package com.example.oauthjwt.config.oauth2.token;
 
 import lombok.*;
 

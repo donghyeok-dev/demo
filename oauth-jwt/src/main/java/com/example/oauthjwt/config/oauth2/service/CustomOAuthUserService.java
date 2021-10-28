@@ -1,5 +1,11 @@
-package com.example.oauthjwt.config.oauth2;
+package com.example.oauthjwt.config.oauth2.service;
 
+import com.example.oauthjwt.config.oauth2.OAuth2Attribute;
+import com.example.oauthjwt.config.oauth2.converter.ProviderTypeConverter;
+import com.example.oauthjwt.config.oauth2.enums.ProviderType;
+import com.example.oauthjwt.config.oauth2.info.OAuth2UserInfo;
+import com.example.oauthjwt.config.oauth2.info.OAuth2UserInfoFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,32 +23,43 @@ import java.util.Map;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomOAuthUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
+    private final ProviderTypeConverter providerTypeConverter;
+
+
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
 
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
+        ProviderType providerType = providerTypeConverter.convertToEntityAttribute(userRequest.getClientRegistration()
+                .getRegistrationId()
+                .toUpperCase());
+
+        OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, oAuth2User.getAttributes());
+
         String resourceServerUri = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
         String accessToken = userRequest.getAccessToken().getTokenValue();
         String userNameAttributeName = userRequest.getClientRegistration()
                 .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-        log.info(String.format(">>> registrationId: %s, resourceServerUri: %s, accessToken: %s, userNameAttributeName: %s",
-                registrationId,
+        log.info(String.format(">>> providerType: %s, resourceServerUri: %s, accessToken: %s, userNameAttributeName: %s",
+                providerType,
                 resourceServerUri,
                 accessToken,
                 userNameAttributeName
                 ));
 
-        OAuth2Attribute oAuth2Attribute = OAuth2Attribute.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-
-        log.info(">>> {}", oAuth2Attribute);
-
-        Map<String, Object> attributes = oAuth2Attribute.convertToMap();
-        Collection<? extends GrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-
-        return new DefaultOAuth2User(roles, attributes, "email");
+//        OAuth2Attribute oAuth2Attribute = OAuth2Attribute.of(providerType, userNameAttributeName, oAuth2User.getAttributes());
+//
+//        log.info(">>> {}", oAuth2Attribute);
+//
+//        Map<String, Object> attributes = oAuth2Attribute.convertToMap();
+//        Collection<? extends GrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+//
+//        return new DefaultOAuth2User(roles, attributes, "email");
+        return null;
     }
 }
