@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ProviderType implements ConverterEnum {
-    GOOGLE("GOOGLE", "구글"),
-    FACEBOOK("FACEBOOK", "페이스북"),
-    NAVER("NAVER", "네이버"),
-    KAKAO("KAKAO", "카카오");
+    GOOGLE("1", "구글"),
+    FACEBOOK("2", "페이스북"),
+    NAVER("3", "네이버"),
+    KAKAO("4", "카카오");
 
     private final String code;
     private final String codeName;
