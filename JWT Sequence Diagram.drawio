@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-14T03:48:54.648Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="wf92eBK7Jr7XMIPz80m1" version="15.7.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-14T03:51:50.469Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="kjtZy7xEXYR3rhwFthoZ" version="15.7.3" type="github">
   <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
       <root>
@@ -83,29 +83,19 @@
             <mxPoint x="510" y="160" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="0K5waCw-fOzYczVbbjzl-14" value="Authentication Server" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;rounded=0;shadow=0;strokeWidth=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+        <mxCell id="0K5waCw-fOzYczVbbjzl-14" value="Database" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;rounded=0;shadow=0;strokeWidth=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
           <mxGeometry x="840" y="80" width="120" height="320" as="geometry" />
         </mxCell>
         <mxCell id="0K5waCw-fOzYczVbbjzl-15" value="" style="points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;strokeWidth=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="0K5waCw-fOzYczVbbjzl-14">
           <mxGeometry x="55" y="90" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="0K5waCw-fOzYczVbbjzl-16" value="Check user" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;entryX=0;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="0K5waCw-fOzYczVbbjzl-14" target="0K5waCw-fOzYczVbbjzl-15">
+        <mxCell id="0K5waCw-fOzYczVbbjzl-16" value="find user" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;entryX=0;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="0K5waCw-fOzYczVbbjzl-14" target="0K5waCw-fOzYczVbbjzl-15">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-265" y="90" as="sourcePoint" />
             <mxPoint x="40" y="90" as="targetPoint" />
             <Array as="points">
               <mxPoint x="20" y="90" />
             </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="0K5waCw-fOzYczVbbjzl-17" value="validate user" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="0K5waCw-fOzYczVbbjzl-14">
-          <mxGeometry y="45" width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="65" y="90" as="sourcePoint" />
-            <mxPoint x="65" y="130" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="85" y="110" />
-            </Array>
-            <mxPoint x="13" y="-32" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="0K5waCw-fOzYczVbbjzl-18" value="Result user info" style="verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;shadow=0;strokeWidth=1;exitX=0;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="0K5waCw-fOzYczVbbjzl-15">
