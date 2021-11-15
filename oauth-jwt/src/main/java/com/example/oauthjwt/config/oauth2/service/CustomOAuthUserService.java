@@ -6,8 +6,8 @@ import com.example.oauthjwt.config.oauth2.exceptions.OAuth2ProviderMissMatchExce
 import com.example.oauthjwt.config.oauth2.info.OAuth2UserInfo;
 import com.example.oauthjwt.config.oauth2.info.OAuth2UserInfoFactory;
 import com.example.oauthjwt.config.security.user.AuthCustomUser;
-import com.example.oauthjwt.domain.member.entity.Member;
-import com.example.oauthjwt.domain.member.repository.MemberRepository;
+import com.example.oauthjwt.api.member.entity.Member;
+import com.example.oauthjwt.api.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,10 +34,7 @@ public class CustomOAuthUserService implements OAuth2UserService<OAuth2UserReque
                 .getRegistrationId()
                 .toUpperCase());
 
-        System.out.println(">>> ProviderType: " + providerType);
-
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, oAuth2User.getAttributes());
-
         Member member = memberRepository.findByUserId(userInfo.getId()).orElse(null);
 
         if(member != null) {

@@ -1,4 +1,4 @@
-package com.example.oauthjwt.domain.member.entity;
+package com.example.oauthjwt.api.member.entity;
 
 import com.example.oauthjwt.common.converter.BooleanTypeConverter;
 import com.example.oauthjwt.common.entity.BaseEntity;
