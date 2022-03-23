@@ -1,6 +1,9 @@
 server:
   port: 8080
   shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
 
 spring:
   sql:
@@ -37,3 +40,16 @@ spring:
           order_inserts: true
           order_updates: true
     defer-datasource-initialization: true
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+springdoc:
+  version: v1
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
