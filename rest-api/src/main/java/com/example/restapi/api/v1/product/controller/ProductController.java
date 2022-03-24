@@ -1,11 +1,13 @@
-package com.example.restapi.api.v1.member.controller;
+package com.example.restapi.api.v1.product.controller;
 
-import com.example.restapi.api.v1.member.model.MemberDto;
 import com.example.restapi.api.v1.member.model.MemberModel;
-import com.example.restapi.api.v1.member.service.MemberService;
+import com.example.restapi.api.v1.product.model.ProductDto;
+import com.example.restapi.api.v1.product.model.ProductModel;
+import com.example.restapi.api.v1.product.service.ProductService;
 import com.example.restapi.global.error.exception.InvalidParameterException;
 import com.example.restapi.global.response.ErrorResponse;
 import com.example.restapi.global.response.LinkFormat;
+import com.example.restapi.global.util.CommonApiCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.links.Link;
@@ -19,38 +21,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import static com.example.restapi.global.util.CommonApiCode.*;
 
 import javax.validation.Valid;
 
-import static com.example.restapi.global.util.CommonApiCode.*;
-
 /**
- * 회원 Restful API Controller
- *
- * produces : 서버에서 클라이언트로 보내는 타입 지정
- * consumes : 클라이언트에서 서버로 보내는 타입 지정
+ * 상품 Restful API Controller
  * @author kdh
- * @see <a href="https://onecellboy.tistory.com/347">Error Code</a>
- * @see <a href="https://jy-beak.tistory.com/123?category=980784">다국어 처리</a>
  */
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "회원", description = "회원 API")
-@ApiResponse(responseCode = ResponseCode.ERROR_400, description = "올바르지 않는 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-@ApiResponse(responseCode = ResponseCode.ERROR_500, description = "서버 내 오류 발생", content = @Content(schema = @Schema(hidden = true)))
-@ApiResponse(responseCode = ResponseCode.ERROR_503, description = "네트워크 문제 또는 서버 이용 불가", content = @Content(schema = @Schema(hidden = true)))
-@RequestMapping(value = "/api/v1/member", produces = MediaTypes.HAL_JSON_VALUE)
-public class MemberController {
-    private final MemberService memberService;
+@Tag(name = "상품", description = "상품 API")
+@ApiResponse(responseCode = CommonApiCode.ResponseCode.ERROR_400, description = "올바르지 않는 요청", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+@ApiResponse(responseCode = CommonApiCode.ResponseCode.ERROR_500, description = "서버 내 오류 발생", content = @Content(schema = @Schema(hidden = true)))
+@ApiResponse(responseCode = CommonApiCode.ResponseCode.ERROR_503, description = "네트워크 문제 또는 서버 이용 불가", content = @Content(schema = @Schema(hidden = true)))
+@RequestMapping(value = "/api/v1/product", produces = MediaTypes.HAL_JSON_VALUE)
+public class ProductController {
+    private final ProductService productService;
 
-    @Operation(summary = "회원 목록 조회", description = "모든 회원 정보를 조회합니다.", responses = {
+    @Operation(summary = "상품 목록 조회", description = "모든 상품 정보를 조회합니다.", responses = {
             @ApiResponse(responseCode = ResponseCode.SUCCESS_200,
                     description = "조회 성공",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = MemberModel.class))),
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ProductModel.class))),
                     links = {
                             @Link(name = ResponseLinkName.SELF, description = "현재", parameters = {
                                     @LinkParameter(name = ResponseLinkParameter.HREF, expression = "$api.uri"),
@@ -62,15 +57,15 @@ public class MemberController {
                             })
                     })
     })
-    @GetMapping
-    public ResponseEntity<CollectionModel<MemberModel>> getAllMember() {
+    @GetMapping()
+    public ResponseEntity<CollectionModel<ProductModel>> getAllProduct() {
         return ResponseEntity.ok()
-                .body(this.memberService.findAllMember());
+                .body(this.productService.findAllProduct());
     }
 
-    @Operation(summary = "회원 조회", description = "회원 id로 회원 정보를 조회합니다.", responses = {
+    @Operation(summary = "상품 조회", description = "상품 id로 상품 정보를 조회합니다.", responses = {
             @ApiResponse(responseCode = ResponseCode.SUCCESS_200, description = "조회 성공",
-                    content = @Content(schema = @Schema(implementation = MemberModel.class)),
+                    content = @Content(schema = @Schema(implementation = ProductModel.class)),
                     links =  {
                             @Link(name = ResponseLinkName.SELF, description = "현재", parameters = {
                                     @LinkParameter(name = ResponseLinkParameter.HREF, expression = "$api.uri/{id}"),
@@ -91,77 +86,77 @@ public class MemberController {
                     }),
             @ApiResponse(responseCode = ResponseCode.NO_CONTENT_204, description = "조회된 정보가 없음", content = @Content(schema = @Schema(hidden = true)))
     })
-    @GetMapping("/{id}")
-    public ResponseEntity<MemberModel> findMember(@Parameter(description = "회원 ID") @PathVariable Long id) {
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductModel> findProduct(@Parameter(description = "상품 ID") @PathVariable Long productId) {
         return ResponseEntity.ok()
-                .body(this.memberService.findMember(id));
+                .body(this.productService.findProduct(productId));
     }
 
-    @Operation(summary = "회원 등록", description = "신규 회원을 등록합니다.", responses = {
+    @Operation(summary = "상품 등록", description = "신규 상품을 등록합니다.", responses = {
             @ApiResponse(responseCode = ResponseCode.SUCCESS_201, description = "등록 성공",
-                    content = @Content(schema = @Schema(implementation = MemberModel.class)),
+                    content = @Content(schema = @Schema(implementation = ProductModel.class)),
                     links =  {
-                            @Link(name = ResponseLinkName.SELF, description = "회원 조회", parameters = {
+                            @Link(name = ResponseLinkName.SELF, description = "조회", parameters = {
                                     @LinkParameter(name = ResponseLinkParameter.HREF, expression = "$api.uri/{id}"),
                                     @LinkParameter(name = ResponseLinkParameter.TYPE, expression = HttpMethod.GET)
                             }),
-                            @Link(name = ResponseLinkName.LIST, description = "회원 목록", parameters = {
+                            @Link(name = ResponseLinkName.LIST, description = "목록", parameters = {
                                     @LinkParameter(name = ResponseLinkParameter.HREF, expression = "$api.uri"),
                                     @LinkParameter(name = ResponseLinkParameter.TYPE, expression = HttpMethod.GET)
                             })
                     }),
-            @ApiResponse(responseCode = ResponseCode.ERROR_409, description = "이미 등록된 회원", content = @Content(schema = @Schema(hidden = true)))
+            @ApiResponse(responseCode = ResponseCode.ERROR_409, description = "이미 등록된 상품", content = @Content(schema = @Schema(hidden = true)))
     })
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MemberModel> createMember(@RequestBody @Valid MemberDto memberDto, Errors errors) {
+    @PostMapping
+    public ResponseEntity<ProductModel> createProduct(@RequestBody @Valid ProductDto productDto, Errors errors) {
         if (errors.hasErrors()) {
             throw new InvalidParameterException("입력 값이 올바르지 않습니다.", errors);
         }
 
-        MemberModel createdMember = this.memberService.saveMember(memberDto);
-        // 201 Created 응답 및 생성된 자원의 주소를 Location 헤더에 등록하며 프론트에서 리다이렉트 목적으로 사용될 수 있습니다.
-        return ResponseEntity.created(createdMember.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(createdMember);
+        ProductModel createdProduct = this.productService.saveProduct(productDto);
+        return ResponseEntity.created(createdProduct.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(createdProduct);
     }
 
-    @Operation(summary = "회원 수정", description = "회원 정보를 수정합니다.", responses = {
+    @Operation(summary = "상품 수정", description = "상품 정보를 수정합니다.", responses = {
             @ApiResponse(responseCode = ResponseCode.SUCCESS_200, description = "수정 성공",
-                    content = @Content(schema = @Schema(implementation = MemberModel.class)),
+                    content = @Content(schema = @Schema(implementation = ProductModel.class)),
                     links =  {
-                            @Link(name = ResponseLinkName.SELF, description = "회원 조회", parameters = {
+                            @Link(name = ResponseLinkName.SELF, description = "조회", parameters = {
                                     @LinkParameter(name = ResponseLinkParameter.HREF, expression = "$api.uri/{id}"),
                                     @LinkParameter(name = ResponseLinkParameter.TYPE, expression = HttpMethod.GET)
                             }),
-                            @Link(name = ResponseLinkName.LIST, description = "회원 목록", parameters = {
+                            @Link(name = ResponseLinkName.LIST, description = "목록", parameters = {
                                     @LinkParameter(name = ResponseLinkParameter.HREF, expression = "$api.uri"),
                                     @LinkParameter(name = ResponseLinkParameter.TYPE, expression = HttpMethod.GET)
                             })
                     }),
     })
-    @PutMapping("/{id}")
-    public ResponseEntity<MemberModel> updateMember(@Parameter(description = "회원 ID") @PathVariable Long id,
-                                                    @RequestBody @Valid MemberDto memberDto, Errors errors) {
+    @PutMapping("/{productId}")
+    public ResponseEntity<ProductModel> updateProduct(@Parameter(description = "상품 ID") @PathVariable Long productId,
+                                                      @RequestBody @Valid ProductDto productDto, Errors errors) {
         if (errors.hasErrors()) {
             throw new InvalidParameterException("입력 값이 올바르지 않습니다.", errors);
         }
 
         return ResponseEntity.ok()
-                .body(this.memberService.updateMember(id, memberDto));
+                .body(this.productService.updateProduct(productId, productDto));
     }
 
-    @Operation(summary = "회원 삭제", description = "회원 정보를 삭제합니다.", responses = {
+    @Operation(summary = "상품 삭제", description = "상품 정보를 삭제합니다.", responses = {
             @ApiResponse(responseCode = ResponseCode.SUCCESS_200, description = "삭제 성공",
                     content = @Content(schema = @Schema(implementation = LinkFormat.class)),
                     links =  {
-                            @Link(name = ResponseLinkName.LIST, description = "회원 목록", parameters = {
+                            @Link(name = ResponseLinkName.LIST, description = "목록", parameters = {
                                     @LinkParameter(name = ResponseLinkParameter.HREF, expression = "$api.uri"),
                                     @LinkParameter(name = ResponseLinkParameter.TYPE, expression = HttpMethod.GET)
                             })
                     }),
     })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<org.springframework.hateoas.Link> deleteMember(@Parameter(description = "회원 ID") @PathVariable Long id) {
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<org.springframework.hateoas.Link> deleteProduct(
+            @Parameter(description = "상품 ID") @PathVariable Long productId) {
         return ResponseEntity.ok()
-                .body(this.memberService.deleteMember(id));
+                .body(this.productService.deleteProduct(productId));
     }
 }

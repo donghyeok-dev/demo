@@ -9,6 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ErrorResponse {
+    @Schema(description = "응답 코드", defaultValue = "")
+    private Integer httpStatusCode;
+
     @Schema(description = "오류 코드", defaultValue = "")
     private String errorCode;
 
@@ -16,7 +19,8 @@ public class ErrorResponse {
     private String errorMessage;
 
     @Builder
-    public ErrorResponse(String errorMessage, String errorCode) {
+    public ErrorResponse(Integer httpStatusCode, String errorMessage, String errorCode) {
+        this.httpStatusCode = httpStatusCode;
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }

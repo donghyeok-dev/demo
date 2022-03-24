@@ -29,7 +29,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     /*
-        회원 목록
+        회원 목록 조회
      */
     @Transactional(readOnly = true)
     public CollectionModel<MemberModel> findAllMember() {
@@ -50,11 +50,10 @@ public class MemberService {
      */
     @Transactional
     public MemberModel saveMember(MemberDto memberDto) {
-        if (this.memberRepository.findByNameAndBirthDay(memberDto.getName(), memberDto.getBirthDay()).isPresent())
+        if (this.memberRepository.existsByNameAndBirthDay(memberDto.getName(), memberDto.getBirthDay()))
             throw new ConflictDataException("이미 등록된 회원입니다.");
 
-        return memberModelAssembler.toModelUpdate(this.memberRepository.save(
-                memberDto.toCreateEntity()));
+        return memberModelAssembler.toModelUpdate(this.memberRepository.save(memberDto.toEntity()));
     }
 
     /*

@@ -25,11 +25,20 @@ import java.io.Serializable;
 public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seq;
+    private Long id;
     private String name;
     private String birthDay;
     private String email;
     private String address;
+
+    @Builder
+    public Member(Long id, String name, String birthDay, String email, String address) {
+        this.id = id;
+        this.name = name;
+        this.birthDay = birthDay;
+        this.email = email;
+        this.address = address;
+    }
 
     public void updateAll(MemberDto memberDto) {
         this.name = memberDto.getName();
@@ -38,18 +47,9 @@ public class Member implements Serializable {
         this.address = memberDto.getAddress();
     }
 
-    @Builder
-    public Member(Long seq, String name, String birthDay, String email, String address) {
-        this.seq = seq;
-        this.name = name;
-        this.birthDay = birthDay;
-        this.email = email;
-        this.address = address;
-    }
-
     public MemberModel toModel() {
         return MemberModel.builder()
-                .seq(this.seq)
+                .id(this.id)
                 .name(this.name)
                 .birthDay(this.birthDay)
                 .email(this.email)

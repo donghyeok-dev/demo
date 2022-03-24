@@ -42,19 +42,8 @@ public class MemberDto {
     @Size(max = 100, message = "주소는 100자 이하로 입력해주세요.")
     private String address;
 
-
-    public Member toCreateEntity() {
+    public Member toEntity() {
         return Member.builder()
-                .name(this.name)
-                .birthDay(this.birthDay)
-                .email(this.email)
-                .address(this.address)
-                .build();
-    }
-
-    public Member toUpdateEntity(Long id) {
-        return Member.builder()
-                .seq(id)
                 .name(this.name)
                 .birthDay(this.birthDay)
                 .email(this.email)

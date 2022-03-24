@@ -1,7 +1,9 @@
 package com.example.restapi.global.error.exception;
 
+import lombok.Getter;
 import org.springframework.validation.Errors;
 
+@Getter
 public class InvalidParameterException extends RuntimeException {
     // https://meetup.toast.com/posts/147
     private Errors errors;
